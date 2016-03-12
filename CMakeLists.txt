@@ -511,7 +511,7 @@ add_custom_command(
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     )
 if (MINGW)
-  set(BUILD_PCH false)
+  set(BUILD_PCH true)
 else (MINGW)
   set(BUILD_PCH true)
 endif(MINGW)
