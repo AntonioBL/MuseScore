@@ -401,70 +401,155 @@ if (MINGW)
 
    # Keep dependencies in alphabetical order. Changes made to this list
    # might need to be made in "build/Linux+BSD/portable/copy-libs" too.
-   install( FILES
-      ${CROSS}/bin/libgcc_s_dw2-1.dll
-      ${CROSS}/bin/libstdc++-6.dll
-      ${CROSS}/bin/libwinpthread-1.dll
-      ${CROSS}/lib/libogg.dll
-      ${CROSS}/lib/libsndfile-1.dll
-      ${CROSS}/lib/libvorbis.dll
-      ${CROSS}/lib/libvorbisfile.dll
-      ${CROSS}/lib/portaudio.dll
-      ${CROSS}/opt/bin/libeay32.dll
-      ${CROSS}/opt/bin/ssleay32.dll
-      ${CROSSQT}/bin/Qt5CLucene.dll
-      ${CROSSQT}/bin/Qt5Core.dll
-      ${CROSSQT}/bin/Qt5Gui.dll
-      ${CROSSQT}/bin/Qt5Help.dll
-      ${CROSSQT}/bin/Qt5Multimedia.dll
-      ${CROSSQT}/bin/Qt5MultimediaWidgets.dll
-      ${CROSSQT}/bin/Qt5Network.dll
-      ${CROSSQT}/bin/Qt5OpenGL.dll
-      ${CROSSQT}/bin/Qt5Positioning.dll
-      ${CROSSQT}/bin/Qt5PrintSupport.dll
-      ${CROSSQT}/bin/Qt5Qml.dll
-      ${CROSSQT}/bin/Qt5Quick.dll
-      ${CROSSQT}/bin/Qt5Sensors.dll
-      ${CROSSQT}/bin/Qt5Sql.dll
-      ${CROSSQT}/bin/Qt5Svg.dll
-      ${CROSSQT}/bin/Qt5WebChannel.dll
-      ${CROSSQT}/bin/Qt5Widgets.dll
-      ${CROSSQT}/bin/Qt5Xml.dll
-      ${CROSSQT}/bin/Qt5XmlPatterns.dll
-      ${PROJECT_SOURCE_DIR}/build/qt.conf
-      DESTINATION bin)
+   if (NOT MSYS)
+      install( FILES
+         ${CROSS}/bin/libgcc_s_dw2-1.dll
+         ${CROSS}/bin/libstdc++-6.dll
+         ${CROSS}/bin/libwinpthread-1.dll
+         ${CROSS}/lib/libogg.dll
+         ${CROSS}/lib/libsndfile-1.dll
+         ${CROSS}/lib/libvorbis.dll
+         ${CROSS}/lib/libvorbisfile.dll
+         ${CROSS}/lib/portaudio.dll
+         ${CROSS}/opt/bin/libeay32.dll
+         ${CROSS}/opt/bin/ssleay32.dll
+         ${CROSSQT}/bin/Qt5CLucene.dll
+         ${CROSSQT}/bin/Qt5Core.dll
+         ${CROSSQT}/bin/Qt5Gui.dll
+         ${CROSSQT}/bin/Qt5Help.dll
+         ${CROSSQT}/bin/Qt5Multimedia.dll
+         ${CROSSQT}/bin/Qt5MultimediaWidgets.dll
+         ${CROSSQT}/bin/Qt5Network.dll
+         ${CROSSQT}/bin/Qt5OpenGL.dll
+         ${CROSSQT}/bin/Qt5Positioning.dll
+         ${CROSSQT}/bin/Qt5PrintSupport.dll
+         ${CROSSQT}/bin/Qt5Qml.dll
+         ${CROSSQT}/bin/Qt5Quick.dll
+         ${CROSSQT}/bin/Qt5Sensors.dll
+         ${CROSSQT}/bin/Qt5Sql.dll
+         ${CROSSQT}/bin/Qt5Svg.dll
+         ${CROSSQT}/bin/Qt5WebChannel.dll
+         ${CROSSQT}/bin/Qt5Widgets.dll
+         ${CROSSQT}/bin/Qt5Xml.dll
+         ${CROSSQT}/bin/Qt5XmlPatterns.dll
+         ${PROJECT_SOURCE_DIR}/build/qt.conf
+         DESTINATION bin)
 
-    install(FILES
-      ${CROSSQT}/plugins/iconengines/qsvgicon.dll
-      DESTINATION bin/iconengines)
+      install(FILES
+         ${CROSSQT}/plugins/iconengines/qsvgicon.dll
+         DESTINATION bin/iconengines)
 
-    install(FILES
-      ${CROSSQT}/plugins/imageformats/qjpeg.dll
-      ${CROSSQT}/plugins/imageformats/qsvg.dll
-      ${CROSSQT}/plugins/imageformats/qtiff.dll
-      DESTINATION bin/imageformats)
+      install(FILES
+         ${CROSSQT}/plugins/imageformats/qjpeg.dll
+         ${CROSSQT}/plugins/imageformats/qsvg.dll
+         ${CROSSQT}/plugins/imageformats/qtiff.dll
+         DESTINATION bin/imageformats)
 
-    install(FILES
-      ${CROSSQT}/plugins/platforms/qwindows.dll
-      DESTINATION bin/platforms)
+      install(FILES
+         ${CROSSQT}/plugins/platforms/qwindows.dll
+         DESTINATION bin/platforms)
 
-    install(FILES
-      ${CROSSQT}/plugins/printsupport/windowsprintersupport.dll
-      DESTINATION bin/printsupport)
+      install(FILES
+         ${CROSSQT}/plugins/printsupport/windowsprintersupport.dll
+         DESTINATION bin/printsupport)
 
-    install(FILES
-      ${CROSSQT}/plugins/sqldrivers/qsqlite.dll
-      DESTINATION bin/sqldrivers)
+      install(FILES
+         ${CROSSQT}/plugins/sqldrivers/qsqlite.dll
+         DESTINATION bin/sqldrivers)
 
-    install(DIRECTORY
-      ${CROSSQT}/qml
-      DESTINATION .
-      REGEX ".*d\\.dll" EXCLUDE
-      REGEX ".*QtGraphicalEffects.*" EXCLUDE
-      REGEX ".*QtMultimedia.*" EXCLUDE
-      REGEX ".*QtSensors.*" EXCLUDE
-      REGEX ".*QtTest.*" EXCLUDE
-      REGEX ".*QtWebkit.*" EXCLUDE)
+      install(DIRECTORY
+         ${CROSSQT}/qml
+         DESTINATION .
+         REGEX ".*d\\.dll" EXCLUDE
+         REGEX ".*QtGraphicalEffects.*" EXCLUDE
+         REGEX ".*QtMultimedia.*" EXCLUDE
+         REGEX ".*QtSensors.*" EXCLUDE
+         REGEX ".*QtTest.*" EXCLUDE
+         REGEX ".*QtWebkit.*" EXCLUDE)
+    else (NOT MSYS)
+      install( FILES
+         ${CROSS}/bin/libgcc_s_dw2-1.dll
+         ${CROSS}/bin/libstdc++-6.dll
+         ${CROSS}/bin/libwinpthread-1.dll
+         ${CROSS}/bin/libogg-0.dll
+         ${CROSS}/bin/libsndfile-1.dll
+         ${CROSS}/bin/libvorbis-0.dll
+         ${CROSS}/bin/libvorbisfile-3.dll
+         ${CROSS}/bin/libportaudio-2.dll
+         ${CROSS}/bin/libeay32.dll
+         ${CROSS}/bin/ssleay32.dll
+         ${CROSSQT}/bin/Qt5CLucene.dll
+         ${CROSSQT}/bin/Qt5Core.dll
+         ${CROSSQT}/bin/Qt5Gui.dll
+         ${CROSSQT}/bin/Qt5Help.dll
+         ${CROSSQT}/bin/Qt5Multimedia.dll
+         ${CROSSQT}/bin/Qt5MultimediaWidgets.dll
+         ${CROSSQT}/bin/Qt5Network.dll
+         ${CROSSQT}/bin/Qt5OpenGL.dll
+         ${CROSSQT}/bin/Qt5Positioning.dll
+         ${CROSSQT}/bin/Qt5PrintSupport.dll
+         ${CROSSQT}/bin/Qt5Qml.dll
+         ${CROSSQT}/bin/Qt5Quick.dll
+         ${CROSSQT}/bin/Qt5Sensors.dll
+         ${CROSSQT}/bin/Qt5Sql.dll
+         ${CROSSQT}/bin/Qt5Svg.dll
+         ${CROSSQT}/bin/Qt5WebChannel.dll
+         ${CROSSQT}/bin/Qt5Widgets.dll
+         ${CROSSQT}/bin/Qt5Xml.dll
+         ${CROSSQT}/bin/Qt5XmlPatterns.dll
+         ${PROJECT_SOURCE_DIR}/build/qt.conf
+         ${CROSS}/bin/zlib1.dll
+         ${CROSS}/bin/libicuin56.dll
+         ${CROSS}/bin/libicuuc56.dll
+         ${CROSS}/bin/libpcre16-0.dll
+         ${CROSS}/bin/libharfbuzz-0.dll
+         ${CROSS}/bin/libpng16-16.dll
+         ${CROSS}/bin/libFLAC-8.dll
+         ${CROSS}/bin/libspeex-1.dll
+         ${CROSS}/bin/libvorbisenc-2.dll
+         ${CROSS}/bin/libicudt56.dll
+         ${CROSS}/bin/libfreetype-6.dll
+         ${CROSS}/bin/libglib-2.0-0.dll
+         ${CROSS}/bin/libgraphite2.dll
+         ${CROSS}/bin/libbz2-1.dll
+         ${CROSS}/bin/libintl-8.dll
+         ${CROSS}/bin/libpcre-1.dll
+         ${CROSS}/bin/libiconv-2.dll
+
+         DESTINATION bin)
+
+      install(FILES
+         ${CROSSQT}/share/qt5/plugins/iconengines/qsvgicon.dll
+         DESTINATION bin/iconengines)
+
+      install(FILES
+         ${CROSSQT}/share/qt5/plugins/imageformats/qjpeg.dll
+         ${CROSSQT}/share/qt5/plugins/imageformats/qsvg.dll
+         ${CROSSQT}/share/qt5/plugins/imageformats/qtiff.dll
+         DESTINATION bin/imageformats)
+
+      install(FILES
+         ${CROSSQT}/share/qt5/plugins/platforms/qwindows.dll
+         DESTINATION bin/platforms)
+
+      install(FILES
+         ${CROSSQT}/share/qt5/plugins/printsupport/windowsprintersupport.dll
+         DESTINATION bin/printsupport)
+
+      install(FILES
+         ${CROSSQT}/share/qt5/plugins/sqldrivers/qsqlite.dll
+         DESTINATION bin/sqldrivers)
+
+      install(DIRECTORY
+         ${CROSSQT}/share/qt5/qml
+         DESTINATION .
+         REGEX ".*d\\.dll" EXCLUDE
+         REGEX ".*QtGraphicalEffects.*" EXCLUDE
+         REGEX ".*QtMultimedia.*" EXCLUDE
+         REGEX ".*QtSensors.*" EXCLUDE
+         REGEX ".*QtTest.*" EXCLUDE
+         REGEX ".*QtWebkit.*" EXCLUDE)
+    endif (NOT MSYS)
 
 else (MINGW)
    target_link_libraries(mscore
