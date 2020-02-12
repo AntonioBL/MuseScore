@@ -1,0 +1,81 @@
+[
+  {
+    "sha": "8b655a90051efff40794ef1f6a294ad9c92c8255",
+    "node_id": "MDY6Q29tbWl0Njc5OTE3Njo4YjY1NWE5MDA1MWVmZmY0MDc5NGVmMWY2YTI5NGFkOWM5MmM4MjU1",
+    "commit": {
+      "author": {
+        "name": "AntonioBL",
+        "email": "antonio.lotti@alice.it",
+        "date": "2020-02-12T13:10:39Z"
+      },
+      "committer": {
+        "name": "AntonioBL",
+        "email": "antonio.lotti@alice.it",
+        "date": "2020-02-12T13:31:05Z"
+      },
+      "message": "fix #123456 : prova artifacts collect_artifacts\nTest to verify.\nOther line",
+      "tree": {
+        "sha": "b83d9ab0fbb2d4240ad34d0fc4a79919c82fee39",
+        "url": "https://api.github.com/repos/AntonioBL/MuseScore/git/trees/b83d9ab0fbb2d4240ad34d0fc4a79919c82fee39"
+      },
+      "url": "https://api.github.com/repos/AntonioBL/MuseScore/git/commits/8b655a90051efff40794ef1f6a294ad9c92c8255",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null
+      }
+    },
+    "url": "https://api.github.com/repos/AntonioBL/MuseScore/commits/8b655a90051efff40794ef1f6a294ad9c92c8255",
+    "html_url": "https://github.com/AntonioBL/MuseScore/commit/8b655a90051efff40794ef1f6a294ad9c92c8255",
+    "comments_url": "https://api.github.com/repos/AntonioBL/MuseScore/commits/8b655a90051efff40794ef1f6a294ad9c92c8255/comments",
+    "author": {
+      "login": "AntonioBL",
+      "id": 2855332,
+      "node_id": "MDQ6VXNlcjI4NTUzMzI=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2855332?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/AntonioBL",
+      "html_url": "https://github.com/AntonioBL",
+      "followers_url": "https://api.github.com/users/AntonioBL/followers",
+      "following_url": "https://api.github.com/users/AntonioBL/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AntonioBL/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AntonioBL/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AntonioBL/subscriptions",
+      "organizations_url": "https://api.github.com/users/AntonioBL/orgs",
+      "repos_url": "https://api.github.com/users/AntonioBL/repos",
+      "events_url": "https://api.github.com/users/AntonioBL/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AntonioBL/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AntonioBL",
+      "id": 2855332,
+      "node_id": "MDQ6VXNlcjI4NTUzMzI=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2855332?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/AntonioBL",
+      "html_url": "https://github.com/AntonioBL",
+      "followers_url": "https://api.github.com/users/AntonioBL/followers",
+      "following_url": "https://api.github.com/users/AntonioBL/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AntonioBL/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AntonioBL/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AntonioBL/subscriptions",
+      "organizations_url": "https://api.github.com/users/AntonioBL/orgs",
+      "repos_url": "https://api.github.com/users/AntonioBL/repos",
+      "events_url": "https://api.github.com/users/AntonioBL/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AntonioBL/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "bea07f5dee521a4d47e1a1666cfb6a7cddedb741",
+        "url": "https://api.github.com/repos/AntonioBL/MuseScore/commits/bea07f5dee521a4d47e1a1666cfb6a7cddedb741",
+        "html_url": "https://github.com/AntonioBL/MuseScore/commit/bea07f5dee521a4d47e1a1666cfb6a7cddedb741"
+      }
+    ]
+  }
+]
