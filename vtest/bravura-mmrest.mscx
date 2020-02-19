@@ -317,7 +317,7 @@ p, li { white-space: pre-wrap; }
           <showCourtesySig>1</showCourtesySig>
           </TimeSig>
         <StaffText>
-          <text>Bravura - multi measure rest</text>
+          <text>Bravura - multi measure restA</text>
           </StaffText>
         <Rest>
           <durationType>measure</durationType>

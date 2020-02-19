@@ -78,7 +78,12 @@ fi
 
 DPI=130
 
-DIR="$(cd "$(dirname "$0")" && pwd)"
+if [ -n "$VTEST_DIR" ]; then
+      echo "::set-env name=SRC::${SRC}"
+      DIR="$VTEST_DIR"
+else
+      DIR="$(cd "$(dirname "$0")" && pwd)"
+fi
 mkdir -p $DIR/html
 cd $DIR/html
 rm -f *.png
