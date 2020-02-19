@@ -1,0 +1,78 @@
+name: CI_vtests
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  run_vtests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Retrieve base commit
+      run: |
+        export BASEREF=$(echo ${{ github.event.pull_request.base.sha }} | head -c 8)
+        if curl --head --silent --fail http://vtest.musescore.org/${BASEREF}/vtest.html 2>/dev/null; then
+        export found=1
+        else
+        export found=0
+        fi
+        echo "::set-env name=BASEREF::${BASEREF}"
+        echo "::set-env name=found::${found}"
+    - name: Clone repository
+      if: contains( env.found, '1')
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      if: contains( env.found, '1')
+      run: |
+        sudo apt-get update
+        sudo apt-get install libasound2-dev portaudio19-dev libmp3lame-dev libsndfile1-dev libportmidi-dev
+        sudo apt-get install libssl-dev libpulse-dev libfreetype6-dev libfreetype6
+        sudo apt-get install libdrm-dev libgl1-mesa-dev libegl1-mesa-dev
+    - name: Setup the environment
+      if: contains( env.found, '1')
+      run: |
+        sed -i 's/travis_retry//g' build/travis/job1_Tests/environment.sh
+        source build/travis/job1_Tests/environment.sh
+        echo "::set-env name=PATH::${PATH}"
+        echo "::set-env name=QT_PLUGIN_PATH::${QT_PLUGIN_PATH}"
+        echo "::set-env name=QML2_IMPORT_PATH::${QML2_IMPORT_PATH}"
+    - name: Build
+      if: contains( env.found, '1')
+      run: |
+        make revision
+        make installdebug CPUS=2 PREFIX="$HOME/software" COVERAGE=ON
+    - name: Run vtests
+      if: contains( env.found, '1')
+      run: |
+        cd vtest
+        export VTEST_MSCORE=$(pwd)/../build.debug/main/mscore
+        export VTEST_BROWSER=ls
+        export VTEST_DIR=$(pwd)
+        xvfb-run ./gen
+        echo $SRC
+    - name: Compare vtests
+      if: contains( env.found, '1')
+      run: |
+        echo $SRC
+        cd vtest
+        xvfb-run ./gen_compare
+    - name: Prepare artifact
+      if: contains( env.found, '1') && contains( env.FLAG, 'true')
+      run: |
+        cd vtest
+        zip -r compare.zip compare
+    - name: Upload artifact
+      if: contains( env.found, '1') && contains( env.FLAG, 'true')
+      uses: actions/upload-artifact@v1
+      with:
+        name: compare.zip
+        path: ./vtest/compare.zip
+    - name: Comment PR
+      if: contains( env.found, '1') && contains( env.FLAG, 'true')
+      uses: thollander/actions-comment-pull-request@1.0.0
+      with:
+        message: 'This is an automatic message. Your PR appears to change some of the visual tests.
+          Please carefully review the new visual test results in the uploaded artifact that you can find
+          [here](https://github.com/musescore/MuseScore/actions?query=workflow%3ACI_vtests)'
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
