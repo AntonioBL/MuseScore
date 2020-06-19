@@ -41,7 +41,6 @@ jobs:
          export commitmsg="$(git log --format=%B -n 1 --skip 1 | head -1)"
          echo "::set-env name=commitmsg::${commitmsg}"
     - name: Setup environment and build
-      if: contains( env.commitmsg, 'collect_artifacts')
       run: |
               curl -LO https://github.com/macports/macports-base/releases/download/v2.6.2/MacPorts-2.6.2-10.15-Catalina.pkg
               sudo installer -verbose -pkg MacPorts-2.6.2-10.15-Catalina.pkg -target /
@@ -56,21 +55,8 @@ jobs:
               export QT_MACOS=$QT_PATH/$QT_SHORT_VERSION/clang_64
               export PATH=$PATH:$QT_MACOS/bin
               echo "::set-env name=PATH::${PATH}"
-              wget -nv -O qt5.zip https://s3.amazonaws.com/utils.musescore.org/qt598_mac.zip
-              mkdir -p $QT_MACOS
-              unzip -qq qt5.zip -d $QT_MACOS
-              rm qt5.zip
-              make -f Makefile.osx ci
-    - name: Package MuseScore
-      if: contains( env.commitmsg, 'collect_artifacts')
-      run: |
-              mkdir -p applebuild/mscore.app/Contents/Resources/Frameworks
-              wget -c --no-check-certificate -nv -O musescore_dependencies_macos.zip  http://utils.musescore.org.s3.amazonaws.com/musescore_dependencies_macos.zip
-              unzip musescore_dependencies_macos.zip -d applebuild/mscore.app/Contents/Resources/Frameworks
-              build/package_mac "PR"
     - name: Upload MacOS artifact
-      if: contains( env.commitmsg, 'collect_artifacts')
       uses: actions/upload-artifact@v1
       with:
-        name: MuseScoreNightly-PR.dmg
-        path: ./applebuild/MuseScoreNightly-PR.dmg
+        name: local
+        path: /opt/local/lib
