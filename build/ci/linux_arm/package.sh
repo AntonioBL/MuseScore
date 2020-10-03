@@ -2,6 +2,16 @@
 
 echo "Package MuseScore"
 
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --arch) ARCH="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+if [ -z "$ARCH" ]; then ARCH=""; fi
+
 ARTIFACTS_DIR="build.artifacts"
 
 echo "=== ENVIRONMENT === "
@@ -15,7 +25,13 @@ mv /MuseScore/build.release/qmlimportscannernew /qt5/bin/qmlimportscanner
 mv /MuseScore/build.release/qmlimportscannerfile /qt5/bin/qmlimportscannerfile
 
 export PATH=/qt5/bin:/tools:/usr/local/bin:$PATH
-export LIBARM="/lib/arm-linux-gnueabihf"
+if [ "$ARCH" == "armhf" ]
+then
+  export LIBARM="/lib/arm-linux-gnueabihf"
+elif [ "$ARCH" == "arm64" ]
+then
+  export LIBARM="/lib/aarch64-linux-gnu"
+fi
 export LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM:/qt5/lib:/usr/lib"
 export QT_PATH=/qt5
 
@@ -211,7 +227,7 @@ done
 ARTIFACTS_DIR=build.artifacts
 
 BUILD_VERSION=$(cat ../$ARTIFACTS_DIR/env/build_version.env)
-ARTIFACT_NAME=MuseScore-${BUILD_VERSION}-armhf.AppImage
+ARTIFACT_NAME=MuseScore-${BUILD_VERSION}-${ARCH}.AppImage
 
 mv ${appimage} ../${ARTIFACTS_DIR}/${ARTIFACT_NAME}
 
