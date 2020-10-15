@@ -53,7 +53,7 @@ apt_packages_standard=(
   wget
   )
 
-# MuseScore compiles without these but won't run without them
+# MuseScore compiles without these but it or the mtests won't run (headless) without them
 apt_packages_runtime=(
   # Alphabetical order please!
   libcups2
@@ -73,6 +73,7 @@ apt_packages_runtime=(
   libxcb-keysyms1
   libxcb-render-util0
   libxcb-xinerama0
+  mesa-utils
   )
 
 apt-get update # no package lists in Docker image
