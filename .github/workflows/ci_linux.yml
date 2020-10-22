@@ -51,10 +51,7 @@ jobs:
     - name: Build
       run: |
         T_ID=${{ secrets.TELEMETRY_TRACK_ID }}; if [ -z "$T_ID" ]; then T_ID="''"; fi
-        sudo bash ./build/ci/linux/build.sh -n ${{ github.run_id }} --telemetry $T_ID
-    - name: Run mtests 
-      run: |
-        sudo bash ./build/ci/linux/runmtests.sh
+        sudo bash ./build/ci/linux/build.sh -n "${{ github.run_id }}" --telemetry "$T_ID"
     - name: Package 
       run: |
         sudo bash ./build/ci/linux/package.sh
@@ -70,3 +67,35 @@ jobs:
       with:
         name: MuseScore_${{ github.run_id }}
         path: ./build.artifacts/
+
+  run_mtests:
+    runs-on: ubuntu-16.04
+    env:
+        # Enable AddressSanitizer in the mtest build
+        CFLAGS: "-fsanitize=address -fno-omit-frame-pointer"
+        CXXFLAGS: "-fsanitize=address -fno-omit-frame-pointer"
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.5.0
+      with:
+        access_token: ${{ github.token }}
+    - name: Clone repository
+      uses: actions/checkout@v2
+    - name: "Configure workflow"
+      run: |
+        sudo bash ./build/ci/tools/make_build_mode_env.sh -e ${{ github.event_name }} -m ${{ github.event.inputs.build_mode }}
+        BUILD_MODE=$(cat ./build.artifacts/env/build_mode.env)
+        echo "BUILD_MODE=$BUILD_MODE" >> $GITHUB_ENV
+        DO_PUBLISH='false'
+        echo "DO_PUBLISH=$DO_PUBLISH" >> $GITHUB_ENV
+        echo "DO_PUBLISH: $DO_PUBLISH"
+    - name: Setup environment
+      run: |
+        sudo bash ./build/ci/linux/setup.sh
+    - name: Build
+      run: |
+        T_ID=${{ secrets.TELEMETRY_TRACK_ID }}; if [ -z "$T_ID" ]; then T_ID="''"; fi
+        sudo bash ./build/ci/linux/build.sh -n "${{ github.run_id }}" --telemetry "$T_ID" --buildtype mtests
+    - name: Run mtests 
+      run: |
+        sudo bash ./build/ci/linux/runmtests.sh

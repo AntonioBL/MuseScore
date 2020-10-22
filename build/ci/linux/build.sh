@@ -7,17 +7,21 @@ trap 'echo Build failed; exit 1' ERR
 
 TELEMETRY_TRACK_ID=""
 ARTIFACTS_DIR=build.artifacts
+BUILDTYPE=portable
+OPTIONS=""
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -n|--number) BUILD_NUMBER="$2"; shift ;;
         --telemetry) TELEMETRY_TRACK_ID="$2"; shift ;;
+        --buildtype) BUILDTYPE="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
 done
 
 if [ -z "$BUILD_NUMBER" ]; then echo "error: not set BUILD_NUMBER"; exit 1; fi
+if [ -z "$BUILDTYPE" ]; then echo "error: not set BUILDTYPE"; exit 1; fi
 if [ -z "$TELEMETRY_TRACK_ID" ]; then TELEMETRY_TRACK_ID=""; fi
 
 BUILD_MODE=$(cat $ARTIFACTS_DIR/env/build_mode.env)
@@ -27,9 +31,13 @@ if [ "$BUILD_MODE" == "nightly_build" ]; then MUSESCORE_BUILD_CONFIG=dev; fi
 if [ "$BUILD_MODE" == "testing_build" ]; then MUSESCORE_BUILD_CONFIG=testing; fi
 if [ "$BUILD_MODE" == "stable_build" ]; then MUSESCORE_BUILD_CONFIG=release; fi
 
+if [ "$BUILDTYPE" == "mtests" ]; then BUILDTYPE=debug; OPTIONS="USE_SYSTEM_FREETYPE=ON"; fi
+
 echo "MUSESCORE_BUILD_CONFIG: $MUSESCORE_BUILD_CONFIG"
 echo "BUILD_NUMBER: $BUILD_NUMBER"
 echo "TELEMETRY_TRACK_ID: $TELEMETRY_TRACK_ID"
+echo "BUILDTYPE: $BUILDTYPE"
+echo "OPTIONS: $OPTIONS"
 
 echo "=== ENVIRONMENT === "
 
@@ -47,7 +55,7 @@ echo " "
 echo "=== BUILD === "
 
 make revision
-make -j2 MUSESCORE_BUILD_CONFIG=$MUSESCORE_BUILD_CONFIG BUILD_NUMBER=$BUILD_NUMBER TELEMETRY_TRACK_ID=$TELEMETRY_TRACK_ID portable
+make -j2 $OPTIONS MUSESCORE_BUILD_CONFIG=$MUSESCORE_BUILD_CONFIG BUILD_NUMBER=$BUILD_NUMBER TELEMETRY_TRACK_ID=$TELEMETRY_TRACK_ID $BUILDTYPE
 
 
 bash ./build/ci/tools/make_release_channel_env.sh 
