@@ -30,8 +30,6 @@ then
   export LIBARM="/lib/aarch64-linux-gnu"
 fi
 
-
-
 export LD_LIBRARY_PATH="/usr$LIBARM:/usr$LIBARM/alsa-lib:/usr$LIBARM/pulseaudio:$LIBARM:/qt5/lib:/usr/lib"
 
 # Create two empty files since qcollectiongenerator and qhelpgenerator are not generated

@@ -235,6 +235,4 @@ cd ..
 
 bash ./build/ci/tools/make_artifact_name_env.sh $ARTIFACT_NAME
 
-echo "::set-env name=ARTIFACT_NAME::${ARTIFACT_NAME}"
-
 echo "Package has finished!" 

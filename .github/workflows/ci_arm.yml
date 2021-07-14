@@ -3,10 +3,10 @@ name: CI_arm
 on:
   pull_request:
     branches:
-    - 3.x
+    - 3.6.2_ARM
   push:
     branches:
-    - 3.x
+    - 3.6.2_ARM
 
 jobs:
   build_armhf:
@@ -70,5 +70,4 @@ jobs:
     - name: Upload artifacts on GitHub
       uses: actions/upload-artifact@v2
       with:
-        name: ${{env.ARTIFACT_NAME}}
-        path: ./build.artifacts/${{env.ARTIFACT_NAME}}
+        path: ./build.artifacts
